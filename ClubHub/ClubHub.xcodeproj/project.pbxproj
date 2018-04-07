@@ -13,9 +13,14 @@
 		43603A19207938D100D6DB56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43603A17207938D100D6DB56 /* Main.storyboard */; };
 		43603A1B207938D300D6DB56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43603A1A207938D300D6DB56 /* Assets.xcassets */; };
 		43603A1E207938D300D6DB56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43603A1C207938D300D6DB56 /* LaunchScreen.storyboard */; };
+		43603A2620793CE500D6DB56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43603A2520793CE500D6DB56 /* GoogleService-Info.plist */; };
+		43CDC08E2079486E00ACD9AA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDC08D2079486E00ACD9AA /* LoginViewController.swift */; };
+		C5256740735162F191D3F219 /* Pods_ClubHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9D0FEDD1359ECCD3A515CA9 /* Pods_ClubHub.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A251183C51B459A0D23BB50 /* Pods-ClubHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub.release.xcconfig"; sourceTree = "<group>"; };
+		43241DAC20795FDC00C02808 /* ClubHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubHub.entitlements; sourceTree = "<group>"; };
 		43603A0E207938D100D6DB56 /* ClubHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43603A11207938D100D6DB56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43603A13207938D100D6DB56 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +29,10 @@
 		43603A1A207938D300D6DB56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43603A1D207938D300D6DB56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43603A1F207938D300D6DB56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43603A2520793CE500D6DB56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		43CDC08D2079486E00ACD9AA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A58F8BF3D72A47ED14AA18F9 /* Pods-ClubHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub.debug.xcconfig"; sourceTree = "<group>"; };
+		F9D0FEDD1359ECCD3A515CA9 /* Pods_ClubHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +40,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5256740735162F191D3F219 /* Pods_ClubHub.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F2638B7D44406A60BBECC35 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A58F8BF3D72A47ED14AA18F9 /* Pods-ClubHub.debug.xcconfig */,
+				2A251183C51B459A0D23BB50 /* Pods-ClubHub.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		43603A05207938D100D6DB56 = {
 			isa = PBXGroup;
 			children = (
 				43603A10207938D100D6DB56 /* ClubHub */,
 				43603A0F207938D100D6DB56 /* Products */,
+				2F2638B7D44406A60BBECC35 /* Pods */,
+				7E06C8A2E1F6EEF69F3C6900 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +77,26 @@
 		43603A10207938D100D6DB56 /* ClubHub */ = {
 			isa = PBXGroup;
 			children = (
+				43241DAC20795FDC00C02808 /* ClubHub.entitlements */,
 				43603A11207938D100D6DB56 /* AppDelegate.swift */,
+				43CDC08D2079486E00ACD9AA /* LoginViewController.swift */,
 				43603A13207938D100D6DB56 /* FirstViewController.swift */,
 				43603A15207938D100D6DB56 /* SecondViewController.swift */,
 				43603A17207938D100D6DB56 /* Main.storyboard */,
 				43603A1A207938D300D6DB56 /* Assets.xcassets */,
 				43603A1C207938D300D6DB56 /* LaunchScreen.storyboard */,
 				43603A1F207938D300D6DB56 /* Info.plist */,
+				43603A2520793CE500D6DB56 /* GoogleService-Info.plist */,
 			);
 			path = ClubHub;
+			sourceTree = "<group>";
+		};
+		7E06C8A2E1F6EEF69F3C6900 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F9D0FEDD1359ECCD3A515CA9 /* Pods_ClubHub.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +106,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 43603A22207938D300D6DB56 /* Build configuration list for PBXNativeTarget "ClubHub" */;
 			buildPhases = (
+				0E1C925A9AC4B6D1C7014518 /* [CP] Check Pods Manifest.lock */,
 				43603A0A207938D100D6DB56 /* Sources */,
 				43603A0B207938D100D6DB56 /* Frameworks */,
 				43603A0C207938D100D6DB56 /* Resources */,
+				F0D8C180E7B9D68D79A03BAE /* [CP] Embed Pods Frameworks */,
+				9EBF9B23C48DE784063274A4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -99,6 +134,11 @@
 				TargetAttributes = {
 					43603A0D207938D100D6DB56 = {
 						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -126,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43603A1E207938D300D6DB56 /* LaunchScreen.storyboard in Resources */,
+				43603A2620793CE500D6DB56 /* GoogleService-Info.plist in Resources */,
 				43603A1B207938D300D6DB56 /* Assets.xcassets in Resources */,
 				43603A19207938D100D6DB56 /* Main.storyboard in Resources */,
 			);
@@ -133,11 +174,123 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0E1C925A9AC4B6D1C7014518 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ClubHub-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9EBF9B23C48DE784063274A4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseFacebookAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseTwitterAuthUI.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseFacebookAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseGoogleAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebasePhoneAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseTwitterAuthUI.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F0D8C180E7B9D68D79A03BAE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		43603A0A207938D100D6DB56 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43CDC08E2079486E00ACD9AA /* LoginViewController.swift in Sources */,
 				43603A16207938D100D6DB56 /* SecondViewController.swift in Sources */,
 				43603A12207938D100D6DB56 /* AppDelegate.swift in Sources */,
 				43603A14207938D100D6DB56 /* FirstViewController.swift in Sources */,
@@ -282,9 +435,11 @@
 		};
 		43603A23207938D300D6DB56 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A58F8BF3D72A47ED14AA18F9 /* Pods-ClubHub.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T7BBJPBGFN;
 				INFOPLIST_FILE = ClubHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -299,9 +454,11 @@
 		};
 		43603A24207938D300D6DB56 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A251183C51B459A0D23BB50 /* Pods-ClubHub.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T7BBJPBGFN;
 				INFOPLIST_FILE = ClubHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -324,7 +481,7 @@
 				43603A21207938D300D6DB56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		43603A22207938D300D6DB56 /* Build configuration list for PBXNativeTarget "ClubHub" */ = {
 			isa = XCConfigurationList;
@@ -333,7 +490,7 @@
 				43603A24207938D300D6DB56 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
