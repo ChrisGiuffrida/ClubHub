@@ -13,7 +13,7 @@
         <!--First-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="FirstViewController" customModule="ClubHub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="HomeViewController" customModule="ClubHub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -31,6 +31,20 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J37-Ez-pMu">
+                                <rect key="frame" x="157" y="203" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign Out"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q3Z-NU-c90">
+                                <rect key="frame" x="157" y="203" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign Out"/>
+                                <connections>
+                                    <action selector="LogOut:" destination="9pv-A4-QxB" eventType="touchUpInside" id="zaJ-hw-Du6"/>
+                                    <segue destination="TpM-lh-mpf" kind="show" identifier="LogOut" id="iMA-ez-4Mn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -42,10 +56,13 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <connections>
+                        <outlet property="LogOutButton" destination="J37-Ez-pMu" id="r5X-DI-DJN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="775" y="-371"/>
         </scene>
         <!--Second-->
         <scene sceneID="wg7-f3-ORb">
@@ -84,10 +101,49 @@
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Yp8-i4-j8b">
+            <objects>
+                <viewController id="Rwb-fH-5pR" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="52l-eI-t3m">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V1H-Q5-6Xx">
+                                <rect key="frame" x="42" y="62" width="302" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3qq-Q4-BZk">
+                                <rect key="frame" x="42" y="111" width="302" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="RH3-So-iDE">
+                                <rect key="frame" x="42" y="178" width="302" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Male"/>
+                                    <segment title="Female"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="rZG-uh-PFj"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Rc-2A-tV7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-596" y="-732.68365817091455"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="F6J-X7-gQK">
             <objects>
-                <viewController storyboardIdentifier="LoginView" id="TpM-lh-mpf" customClass="LoginViewController" customModule="ClubHub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="TpM-lh-mpf" customClass="LoginViewController" customModule="ClubHub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kt2-hv-esN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,14 +172,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFi-ac-p8X">
-                                <rect key="frame" x="166" y="318" width="42" height="30"/>
-                                <state key="normal" title="Log In"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs6-ff-YBR">
-                                <rect key="frame" x="154" y="486" width="67" height="30"/>
-                                <state key="normal" title="Facebook"/>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use an existing account." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDP-Wf-pzU">
                                 <rect key="frame" x="93" y="423" width="188" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -135,14 +183,32 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aar-AD-78x" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="99" y="479" width="176" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugK-Ic-bMn">
+                                <rect key="frame" x="99" y="318" width="107" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Create Account"/>
+                                <connections>
+                                    <action selector="createAccount:" destination="TpM-lh-mpf" eventType="touchUpInside" id="FbY-q0-1Tv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFi-ac-p8X">
+                                <rect key="frame" x="233" y="318" width="42" height="30"/>
+                                <state key="normal" title="Log In"/>
+                                <connections>
+                                    <action selector="standardLogIn:" destination="TpM-lh-mpf" eventType="touchUpInside" id="dG4-39-Sk2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="gs6-ff-YBR" firstAttribute="top" secondItem="nDP-Wf-pzU" secondAttribute="bottom" constant="42" id="0IJ-x7-Mh3"/>
                             <constraint firstItem="fim-SD-qEU" firstAttribute="top" secondItem="aL5-7X-b0h" secondAttribute="top" constant="101" id="1rw-UK-0Hc"/>
                             <constraint firstItem="CpU-B9-tGV" firstAttribute="leading" secondItem="dAx-kv-pMn" secondAttribute="leading" id="5nA-1z-NOP"/>
                             <constraint firstItem="nDP-Wf-pzU" firstAttribute="centerX" secondItem="grN-rR-7yu" secondAttribute="centerX" id="5uN-51-iwx"/>
-                            <constraint firstItem="nDP-Wf-pzU" firstAttribute="centerX" secondItem="gs6-ff-YBR" secondAttribute="centerX" id="618-gv-Sgp"/>
                             <constraint firstItem="hFi-ac-p8X" firstAttribute="centerX" secondItem="dAx-kv-pMn" secondAttribute="centerX" id="7Jl-Ew-D9I"/>
                             <constraint firstItem="nDP-Wf-pzU" firstAttribute="top" secondItem="grN-rR-7yu" secondAttribute="bottom" constant="20" id="B3e-v0-Abh"/>
                             <constraint firstItem="dAx-kv-pMn" firstAttribute="top" secondItem="CpU-B9-tGV" secondAttribute="bottom" constant="23" id="Obp-uK-66O"/>
@@ -160,17 +226,23 @@
                         <viewLayoutGuide key="safeArea" id="aL5-7X-b0h"/>
                     </view>
                     <connections>
+                        <outlet property="CreateAccountButton" destination="ugK-Ic-bMn" id="kgL-x8-9h3"/>
+                        <outlet property="FBLoginButton" destination="aar-AD-78x" id="qgT-Kb-NsZ"/>
                         <outlet property="GIDSignInButton" destination="9Cv-T9-nRp" id="grR-YS-s9h"/>
+                        <outlet property="PasswordTextField" destination="dAx-kv-pMn" id="6DE-iJ-W5E"/>
+                        <outlet property="StandardLogInButton" destination="hFi-ac-p8X" id="i8l-Wh-apP"/>
+                        <outlet property="UsernameTextField" destination="CpU-B9-tGV" id="s3o-hP-lRE"/>
+                        <segue destination="49e-Tb-3d3" kind="show" identifier="goingHome" id="Dmq-0y-UbX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vm4-5s-8FG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-804" y="8.5457271364317844"/>
+            <point key="canvasLocation" x="-1119.2" y="-0.44977511244377816"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomeViewController" id="49e-Tb-3d3" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>

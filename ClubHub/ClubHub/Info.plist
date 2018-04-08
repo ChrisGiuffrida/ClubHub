@@ -24,6 +24,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.490986298253-oa4ea4hrai5ujb20do00cban73i9k22d</string>
+				<string>fb164687450852431</string>
 			</array>
 		</dict>
 		<dict>
@@ -37,6 +38,17 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>164687450852431</string>
+	<key>FacebookDisplayName</key>
+	<string>ClubHub</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

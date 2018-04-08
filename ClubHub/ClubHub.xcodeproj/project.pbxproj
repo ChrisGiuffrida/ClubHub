@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		43603A12207938D100D6DB56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43603A11207938D100D6DB56 /* AppDelegate.swift */; };
-		43603A14207938D100D6DB56 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43603A13207938D100D6DB56 /* FirstViewController.swift */; };
+		43603A14207938D100D6DB56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43603A13207938D100D6DB56 /* HomeViewController.swift */; };
 		43603A16207938D100D6DB56 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43603A15207938D100D6DB56 /* SecondViewController.swift */; };
 		43603A19207938D100D6DB56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43603A17207938D100D6DB56 /* Main.storyboard */; };
 		43603A1B207938D300D6DB56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43603A1A207938D300D6DB56 /* Assets.xcassets */; };
@@ -23,7 +23,7 @@
 		43241DAC20795FDC00C02808 /* ClubHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubHub.entitlements; sourceTree = "<group>"; };
 		43603A0E207938D100D6DB56 /* ClubHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43603A11207938D100D6DB56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		43603A13207938D100D6DB56 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		43603A13207938D100D6DB56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		43603A15207938D100D6DB56 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		43603A18207938D100D6DB56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		43603A1A207938D300D6DB56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 				43241DAC20795FDC00C02808 /* ClubHub.entitlements */,
 				43603A11207938D100D6DB56 /* AppDelegate.swift */,
 				43CDC08D2079486E00ACD9AA /* LoginViewController.swift */,
-				43603A13207938D100D6DB56 /* FirstViewController.swift */,
+				43603A13207938D100D6DB56 /* HomeViewController.swift */,
 				43603A15207938D100D6DB56 /* SecondViewController.swift */,
 				43603A17207938D100D6DB56 /* Main.storyboard */,
 				43603A1A207938D300D6DB56 /* Assets.xcassets */,
@@ -293,7 +293,7 @@
 				43CDC08E2079486E00ACD9AA /* LoginViewController.swift in Sources */,
 				43603A16207938D100D6DB56 /* SecondViewController.swift in Sources */,
 				43603A12207938D100D6DB56 /* AppDelegate.swift in Sources */,
-				43603A14207938D100D6DB56 /* FirstViewController.swift in Sources */,
+				43603A14207938D100D6DB56 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
