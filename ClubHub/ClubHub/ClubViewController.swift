@@ -19,17 +19,54 @@ class ClubViewController: UIViewController {
     var user: User?
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
     var ClubKey: String = ""
-    var ClubName: String = "Test"
+    var ClubEventKey: String = ""
+    var ClubName: String = ""
+    var ClubEventName: String = ""
+    var CameFromCamera: Bool = false
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if(CameFromCamera == true) {
+            let alertPrompt = UIAlertController(title: "Open App", message: "Do you want to sign into \(ClubName)'s \(ClubEventName) event?", preferredStyle: .actionSheet)
+            let confirmAction = UIAlertAction(title: "Confirm", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+                
+                let members: [AnyHashable: Any] = [(self.user?.uid)!: self.user?.displayName]
+                let events: [AnyHashable: Any] = [self.ClubEventKey: self.ClubEventName]
+            self.ref.child("clubs").child(self.ClubKey).child("events").child(self.ClubEventKey).child("members").updateChildValues(members)
+                self.ref.child("users").child((self.user?.uid)!).child("events").updateChildValues(members)
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) -> Void in
+                //_ = self.navigationController?.popViewController(animated: true)
+                let cameraViewController = self.storyboard?.instantiateViewController(withIdentifier: "CameraViewController")
+                self.present(cameraViewController!, animated: true)
+            })
+                
+            alertPrompt.addAction(confirmAction)
+            alertPrompt.addAction(cancelAction)
+            
+            present(alertPrompt, animated: true, completion: nil)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureAuth()
         configureDatabase()
-        
+
         ref.child("clubs").child(ClubKey).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
+            self.ClubName = value?["club_name"] as? String ?? "ClubName"
             self.ClubNameLabel.text = value?["club_name"] as? String ?? "ClubName"
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        ref.child("clubs").child(ClubKey).child("events").child(ClubEventKey).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            self.ClubEventName = value?["event_name"] as? String ?? "EventName"
         }) { (error) in
             print(error.localizedDescription)
         }

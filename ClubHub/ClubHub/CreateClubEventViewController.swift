@@ -78,6 +78,7 @@ class CreateClubEventViewController: UIViewController {
         
         // Create QR code
         // NSData
+        // https://github.com/aschuch/QRCode
         var text = ClubKey + "#" + ClubEventKey
         let data = text.data(using: .isoLatin1)!
         let qrCode = QRCode(data)

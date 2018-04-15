@@ -18,6 +18,7 @@
 		439E76BF2083CB2E0000158A /* CreateNewClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76BE2083CB2E0000158A /* CreateNewClubViewController.swift */; };
 		439E76C12083CB400000158A /* ClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C02083CB400000158A /* ClubViewController.swift */; };
 		439E76C32083CB540000158A /* CreateClubEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C22083CB540000158A /* CreateClubEventViewController.swift */; };
+		439E76C52083E8800000158A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C42083E8800000158A /* CameraViewController.swift */; };
 		43CDC08E2079486E00ACD9AA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDC08D2079486E00ACD9AA /* LoginViewController.swift */; };
 		C5256740735162F191D3F219 /* Pods_ClubHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9D0FEDD1359ECCD3A515CA9 /* Pods_ClubHub.framework */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		439E76BE2083CB2E0000158A /* CreateNewClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewClubViewController.swift; sourceTree = "<group>"; };
 		439E76C02083CB400000158A /* ClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubViewController.swift; sourceTree = "<group>"; };
 		439E76C22083CB540000158A /* CreateClubEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClubEventViewController.swift; sourceTree = "<group>"; };
+		439E76C42083E8800000158A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		43CDC08D2079486E00ACD9AA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A58F8BF3D72A47ED14AA18F9 /* Pods-ClubHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub.debug.xcconfig"; sourceTree = "<group>"; };
 		F9D0FEDD1359ECCD3A515CA9 /* Pods_ClubHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +97,7 @@
 				439E76C02083CB400000158A /* ClubViewController.swift */,
 				439E76C22083CB540000158A /* CreateClubEventViewController.swift */,
 				43603A17207938D100D6DB56 /* Main.storyboard */,
+				439E76C42083E8800000158A /* CameraViewController.swift */,
 				43603A1A207938D300D6DB56 /* Assets.xcassets */,
 				43603A1C207938D300D6DB56 /* LaunchScreen.storyboard */,
 				43603A1F207938D300D6DB56 /* Info.plist */,
@@ -312,6 +315,7 @@
 				439E76C12083CB400000158A /* ClubViewController.swift in Sources */,
 				43603A12207938D100D6DB56 /* AppDelegate.swift in Sources */,
 				43603A14207938D100D6DB56 /* HomeViewController.swift in Sources */,
+				439E76C52083E8800000158A /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,7 +463,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T7BBJPBGFN;
 				INFOPLIST_FILE = ClubHub/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.giuffrida.ClubHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -475,7 +482,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T7BBJPBGFN;
 				INFOPLIST_FILE = ClubHub/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.giuffrida.ClubHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
