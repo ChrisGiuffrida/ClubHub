@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4347AD51207AE0A600C24363 /* CompleteSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4347AD50207AE0A600C24363 /* CompleteSignupViewController.swift */; };
 		43603A12207938D100D6DB56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43603A11207938D100D6DB56 /* AppDelegate.swift */; };
 		43603A14207938D100D6DB56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43603A13207938D100D6DB56 /* HomeViewController.swift */; };
 		43603A16207938D100D6DB56 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43603A15207938D100D6DB56 /* SecondViewController.swift */; };
@@ -14,6 +15,9 @@
 		43603A1B207938D300D6DB56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43603A1A207938D300D6DB56 /* Assets.xcassets */; };
 		43603A1E207938D300D6DB56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43603A1C207938D300D6DB56 /* LaunchScreen.storyboard */; };
 		43603A2620793CE500D6DB56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43603A2520793CE500D6DB56 /* GoogleService-Info.plist */; };
+		439E76BF2083CB2E0000158A /* CreateNewClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76BE2083CB2E0000158A /* CreateNewClubViewController.swift */; };
+		439E76C12083CB400000158A /* ClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C02083CB400000158A /* ClubViewController.swift */; };
+		439E76C32083CB540000158A /* CreateClubEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C22083CB540000158A /* CreateClubEventViewController.swift */; };
 		43CDC08E2079486E00ACD9AA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDC08D2079486E00ACD9AA /* LoginViewController.swift */; };
 		C5256740735162F191D3F219 /* Pods_ClubHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9D0FEDD1359ECCD3A515CA9 /* Pods_ClubHub.framework */; };
 /* End PBXBuildFile section */
@@ -21,6 +25,7 @@
 /* Begin PBXFileReference section */
 		2A251183C51B459A0D23BB50 /* Pods-ClubHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub.release.xcconfig"; sourceTree = "<group>"; };
 		43241DAC20795FDC00C02808 /* ClubHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubHub.entitlements; sourceTree = "<group>"; };
+		4347AD50207AE0A600C24363 /* CompleteSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignupViewController.swift; sourceTree = "<group>"; };
 		43603A0E207938D100D6DB56 /* ClubHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43603A11207938D100D6DB56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43603A13207938D100D6DB56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -30,6 +35,9 @@
 		43603A1D207938D300D6DB56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43603A1F207938D300D6DB56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43603A2520793CE500D6DB56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		439E76BE2083CB2E0000158A /* CreateNewClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewClubViewController.swift; sourceTree = "<group>"; };
+		439E76C02083CB400000158A /* ClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubViewController.swift; sourceTree = "<group>"; };
+		439E76C22083CB540000158A /* CreateClubEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClubEventViewController.swift; sourceTree = "<group>"; };
 		43CDC08D2079486E00ACD9AA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A58F8BF3D72A47ED14AA18F9 /* Pods-ClubHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub.debug.xcconfig"; sourceTree = "<group>"; };
 		F9D0FEDD1359ECCD3A515CA9 /* Pods_ClubHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,8 +88,12 @@
 				43241DAC20795FDC00C02808 /* ClubHub.entitlements */,
 				43603A11207938D100D6DB56 /* AppDelegate.swift */,
 				43CDC08D2079486E00ACD9AA /* LoginViewController.swift */,
+				4347AD50207AE0A600C24363 /* CompleteSignupViewController.swift */,
 				43603A13207938D100D6DB56 /* HomeViewController.swift */,
 				43603A15207938D100D6DB56 /* SecondViewController.swift */,
+				439E76BE2083CB2E0000158A /* CreateNewClubViewController.swift */,
+				439E76C02083CB400000158A /* ClubViewController.swift */,
+				439E76C22083CB540000158A /* CreateClubEventViewController.swift */,
 				43603A17207938D100D6DB56 /* Main.storyboard */,
 				43603A1A207938D300D6DB56 /* Assets.xcassets */,
 				43603A1C207938D300D6DB56 /* LaunchScreen.storyboard */,
@@ -244,6 +256,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
@@ -268,6 +281,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
@@ -291,7 +305,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				43CDC08E2079486E00ACD9AA /* LoginViewController.swift in Sources */,
+				4347AD51207AE0A600C24363 /* CompleteSignupViewController.swift in Sources */,
+				439E76C32083CB540000158A /* CreateClubEventViewController.swift in Sources */,
+				439E76BF2083CB2E0000158A /* CreateNewClubViewController.swift in Sources */,
 				43603A16207938D100D6DB56 /* SecondViewController.swift in Sources */,
+				439E76C12083CB400000158A /* ClubViewController.swift in Sources */,
 				43603A12207938D100D6DB56 /* AppDelegate.swift in Sources */,
 				43603A14207938D100D6DB56 /* HomeViewController.swift in Sources */,
 			);
@@ -441,10 +459,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T7BBJPBGFN;
 				INFOPLIST_FILE = ClubHub/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.giuffrida.ClubHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -460,10 +475,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T7BBJPBGFN;
 				INFOPLIST_FILE = ClubHub/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.giuffrida.ClubHub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

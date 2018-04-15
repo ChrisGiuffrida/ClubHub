@@ -11,6 +11,7 @@ import Firebase
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var CreateClubButton: UIButton!
     @IBOutlet weak var LogOutButton: UIButton!
     
     
@@ -34,5 +35,9 @@ class HomeViewController: UIViewController {
         performSegue(withIdentifier: "LogOut", sender: sender)
     }
     
+    
+    @IBAction func createNewClub(_ sender: Any) {
+        performSegue(withIdentifier: "createClub", sender: self)
+    }
 }
 
