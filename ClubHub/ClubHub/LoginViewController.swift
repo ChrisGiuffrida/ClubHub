@@ -165,7 +165,6 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate,  FBSDKLoginBut
         let password: String! = self.PasswordTextField.text
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             print(error?.localizedDescription)
-            print("poop")
             if error != nil {
                 if let errCode = AuthErrorCode(rawValue: error!._code) {
                     switch(errCode) {

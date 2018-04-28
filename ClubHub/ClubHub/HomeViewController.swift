@@ -11,7 +11,7 @@ import Firebase
 
 class HomeViewController: UIViewController {
 
-    @IBOutlet weak var CreateClubButton: UIButton!
+    @IBOutlet weak var CreateClubButton: UIBarButtonItem!
     @IBOutlet weak var LogOutButton: UIButton!
     
     

@@ -146,7 +146,7 @@ class CameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             ClubEventKey = clubInfoArray[1]
         }
         catch {
-            print("IT FAILED!!!!!")
+
         }
         
         performSegue(withIdentifier: "signInToClub", sender: self)

@@ -11,10 +11,13 @@ import Firebase
 import GoogleSignIn
 import FBSDKLoginKit
 
-class CreateNewClubViewController: UIViewController {
+class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
 
     @IBOutlet weak var ClubNameTextField: UITextField!
+    @IBOutlet weak var ClubAbbreviationTextField: UITextField!
+    @IBOutlet weak var ClubDescriptionTextView: UITextView!
+    @IBOutlet weak var ClubImageView: UIImageView!
     @IBOutlet weak var CreateClubButton: UIButton!
     
     var ref: DatabaseReference!
@@ -26,10 +29,48 @@ class CreateNewClubViewController: UIViewController {
         super.viewDidLoad()
         configureAuth()
         configureDatabase()
-        //FinishSignUpButton.isEnabled = false
+        ClubImageView.layer.borderWidth = 1
+        ClubImageView.layer.cornerRadius = (ClubImageView.image?.size.width)!/3
+        ClubImageView.layer.masksToBounds = true
         
-        //FirstNameTextField.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
-        //LastNameTextField.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
+        ClubDescriptionTextView.delegate = self
+        ClubDescriptionTextView.text = "Club description..."
+        ClubDescriptionTextView.textColor = UIColor.groupTableViewBackground
+        ClubDescriptionTextView!.layer.borderWidth = 0.5
+        ClubDescriptionTextView.layer.cornerRadius = 5
+        ClubDescriptionTextView!.layer.borderColor = UIColor.groupTableViewBackground.cgColor
+        
+        ClubNameTextField!.layer.borderWidth = 0.5
+        ClubNameTextField.layer.cornerRadius = 5
+        ClubNameTextField!.layer.borderColor = UIColor.groupTableViewBackground.cgColor
+        ClubAbbreviationTextField!.layer.borderWidth = 0.5
+        ClubAbbreviationTextField.layer.cornerRadius = 5
+        ClubAbbreviationTextField!.layer.borderColor = UIColor.groupTableViewBackground.cgColor
+
+        ClubImageView.layer.borderWidth = 1
+        ClubImageView.layer.cornerRadius = ClubImageView.frame.height / 2
+        ClubImageView.layer.masksToBounds = true
+        
+        self.addRemoveKeyboardGesture()
+        CreateClubButton.isEnabled = false
+        
+        ClubNameTextField.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
+        ClubAbbreviationTextField.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
+        //ClubDescriptionTextView.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.groupTableViewBackground {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == "" {
+            textView.text = "Club description..."
+            textView.textColor = UIColor.groupTableViewBackground
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,16 +78,17 @@ class CreateNewClubViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-//    @objc func editingChanged() {
-//        guard
-//            let firstName = FirstNameTextField.text, !firstName.isEmpty,
-//            let lastName = LastNameTextField.text, !lastName.isEmpty
-//            else {
-//                self.FinishSignUpButton.isEnabled = false
-//                return
-//        }
-//        FinishSignUpButton.isEnabled = true
-//    }
+    @objc func editingChanged() {
+        guard
+            let clubName = ClubNameTextField.text, !clubName.isEmpty,
+            let clubAbbrev = ClubAbbreviationTextField.text, !clubAbbrev.isEmpty
+            //let clubDescription = ClubDescriptionTextView.text, !clubDescription.isEmpty
+            else {
+                self.CreateClubButton.isEnabled = false
+                return
+        }
+        CreateClubButton.isEnabled = true
+    }
     
     func configureDatabase() {
         ref = Database.database().reference()
@@ -79,9 +121,65 @@ class CreateNewClubViewController: UIViewController {
     @IBAction func createClub(_ sender: Any) {
         if user != nil {
             ClubKey = ref.child("clubs").childByAutoId().key
-            self.ref.child("clubs").child(ClubKey).setValue(["club_name": ClubNameTextField.text])
-            performSegue(withIdentifier: "goToNewClub", sender: self)
+            let admin: [AnyHashable: Any] = [(self.user?.uid)!: true]
+            self.ref.child("clubs").child(ClubKey).setValue(["club_name": ClubNameTextField.text, "club_abbreviation": ClubAbbreviationTextField.text, "club_description": ClubDescriptionTextView.text, "admins": admin])
+            
+            let clubs: [AnyHashable: Any] = [ClubKey: true]
+            self.ref.child("users").child((self.user?.uid)!).child("admin_clubs").updateChildValues(clubs)
+            //performSegue(withIdentifier: "goToNewClub", sender: self)
         }
+    }
+
+    
+    @IBAction func selectImage(_ sender: Any) {
+        ClubNameTextField.resignFirstResponder()
+    ClubDescriptionTextView.resignFirstResponder()
+        ClubNameTextField.resignFirstResponder()
+        
+        let imagePickerController = UIImagePickerController()
+        
+        print("I'm here")
+        // Only allow photos to be picked, not taken.
+        imagePickerController.sourceType = .photoLibrary
+        
+        // Make sure ViewController is notified when the user picks an image.
+        
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // Dismiss the picker if the user canceled.
+        dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        // The info dictionary may contain multiple representations of the image. You want to use the original.
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        // Set club image view to display the selected image.
+        ClubImageView.image = selectedImage
+        
+        // Dismiss the picker.
+        dismiss(animated: true, completion: nil)
     }
 }
 
+extension UIViewController
+{
+    func addRemoveKeyboardGesture()
+    {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UIViewController.dismissKeyboard))
+        
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard()
+    {
+        view.endEditing(true)
+    }
+}
