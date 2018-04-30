@@ -13,17 +13,30 @@ import FBSDKLoginKit
 
 class ClubViewController: UIViewController {
     
-    @IBOutlet weak var ClubNameLabel: UILabel!
-    @IBOutlet weak var AddEventButton: UIButton!
-    var ref: DatabaseReference!
-    var user: User?
-    fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
+    
+    @IBOutlet weak var ClubPicture: UIImageView!
+    @IBOutlet weak var ClubMemberLabel: UILabel!
+    @IBOutlet weak var UpcomingEventLabel: UILabel!
+    @IBOutlet weak var PastEventLabel: UILabel!
+    @IBOutlet weak var ClubDescriptionLabel: UILabel!
+    
+    
+    @IBOutlet weak var ClubSegmentControl: UISegmentedControl!
+    @IBOutlet weak var ClubMemberView: UIView!
+    @IBOutlet weak var ClubEventView: UIView!
+    
     var ClubKey: String = ""
     var ClubEventKey: String = ""
     var ClubName: String = ""
     var ClubEventName: String = ""
     var CameFromCamera: Bool = false
     
+    var ref: DatabaseReference!
+    var storageRef: StorageReference!
+    var user: User?
+    fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
+    fileprivate var _clubPictureHandle: DatabaseHandle!
+
     
     override func viewDidAppear(_ animated: Bool) {
         if(CameFromCamera == true) {
@@ -52,15 +65,38 @@ class ClubViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.setHidesBackButton(true, animated:true);
         configureAuth()
         configureDatabase()
+        configureStorage()
+        
+        self.navigationItem.setHidesBackButton(true, animated:true);
+        
+        var plus = UIImage(named: "Plus")
+        plus = plus?.withRenderingMode(.alwaysTemplate)
+        
+        var analytics = UIImage(named: "Chart")
+        analytics = analytics?.withRenderingMode(.alwaysTemplate)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: analytics, style: .plain, target: self, action: #selector(viewAnalytics))
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: plus, style: .plain, target: self, action: #selector(addEvent))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        
+        ClubPicture.layer.borderWidth = 1
+        ClubPicture.layer.masksToBounds = false
+        ClubPicture.layer.cornerRadius = ClubPicture.frame.height/2
+        ClubPicture.clipsToBounds = true
+        ClubPicture.contentMode = .scaleAspectFill;
 
         ref.child("clubs").child(ClubKey).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
-            self.ClubName = value?["club_name"] as? String ?? "ClubName"
-            self.ClubNameLabel.text = value?["club_name"] as? String ?? "ClubName"
+            let clubName = value?["club_name"] as? String ?? "ClubName"
+            let clubDescriptionLabel = value?["club_description"] as? String
+            let clubAbbreviation = value?["club_abbreviation"] as? String
+            self.ClubDescriptionLabel.text = clubName + "\n" + clubDescriptionLabel!
+            self.navigationItem.title = clubAbbreviation
+            //self.ClubNameLabel.text = value?["club_name"] as? String ?? "ClubName"
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -74,7 +110,22 @@ class ClubViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
-}
+        
+        let pictureRef = storageRef.child("club_photos/" + ClubKey)
+        // Download in memory with a maximum allowed size of 15MB (1 * 1024 * 1024 bytes)
+        pictureRef.getData(maxSize: 15 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+                print(error.localizedDescription)
+            } else {
+                // Data for "images/island.jpg" is returned
+                self.ClubPicture.image = UIImage(data: data!)
+            }
+        }
+        
+        ClubMemberView.isHidden = false
+        ClubEventView.isHidden = true
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -83,6 +134,10 @@ class ClubViewController: UIViewController {
     
     func configureDatabase() {
         ref = Database.database().reference()
+    }
+    
+    func configureStorage() {
+        storageRef = Storage.storage().reference()
     }
     
     func configureAuth() {
@@ -100,17 +155,48 @@ class ClubViewController: UIViewController {
         }
     }
     
+    @objc func addEvent() {
+        performSegue(withIdentifier: "addClubEvent", sender: self)
+    }
+    
+    @objc func viewAnalytics() {
+        //performSegue(withIdentifier: "addClubEvent", sender: self)
+        print("View Analytics")
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // get a reference to the second view controller
-        let secondViewController = segue.destination as! CreateClubEventViewController
-        
-        // set a variable in the second view controller with the String to pass
-        secondViewController.ClubKey = ClubKey
+        if segue.identifier == "addClubEvent" {
+            let secondViewController = segue.destination as! CreateClubEventViewController
+            secondViewController.ClubKey = ClubKey
+        }
     }
     
-    @IBAction func createNewEvent(_ sender: Any) {
-        //performSegue(withIdentifier: "addClubEvent", sender: self)
+    @IBAction func indexChanged(_ sender: Any) {
+        switch ClubSegmentControl.selectedSegmentIndex {
+        case 0:
+            ClubMemberView.isHidden = false
+            ClubEventView.isHidden = true
+            break
+        case 1:
+            ClubMemberView.isHidden = true
+            ClubEventView.isHidden = false
+            break
+        default:
+            break
+        }
+    }
+}
+
+extension UIImage {
+    func tinted(with color: UIColor) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        color.set()
+        withRenderingMode(.alwaysOriginal)
+            .draw(in: CGRect(origin: .zero, size: size))
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }
 

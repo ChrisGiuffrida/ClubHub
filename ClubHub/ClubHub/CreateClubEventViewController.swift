@@ -12,11 +12,12 @@ import GoogleSignIn
 import FBSDKLoginKit
 import QRCode
 
-class CreateClubEventViewController: UIViewController {
+class CreateClubEventViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var AddEventButton: UIButton!
     @IBOutlet weak var EventNameTextField: UITextField!
-    @IBOutlet weak var QRCodeImage: UIImageView!
+    @IBOutlet weak var EventDescriptionTextView: UITextView!
+    //@IBOutlet weak var QRCodeImage: UIImageView!
     var ref: DatabaseReference!
     var user: User?
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
@@ -28,8 +29,12 @@ class CreateClubEventViewController: UIViewController {
         configureAuth()
         configureDatabase()
         
-        
-        
+        EventDescriptionTextView.delegate = self
+        EventDescriptionTextView.text = "Club description..."
+        EventDescriptionTextView.textColor = UIColor.groupTableViewBackground
+        EventDescriptionTextView!.layer.borderWidth = 0.5
+        EventDescriptionTextView.layer.cornerRadius = 5
+        EventDescriptionTextView!.layer.borderColor = UIColor.groupTableViewBackground.cgColor
         
         //FinishSignUpButton.isEnabled = false
         
@@ -72,20 +77,49 @@ class CreateClubEventViewController: UIViewController {
         }
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.groupTableViewBackground {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == "" {
+            textView.text = "Club description..."
+            textView.textColor = UIColor.groupTableViewBackground
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // get a reference to the second view controller
+        let secondViewController = segue.destination as! QRCodeViewController
+        
+        // set a variable in the second view controller with the String to pass
+        secondViewController.text = ClubKey + "#" + ClubEventKey
+    }
+    
     @IBAction func addNewEvent(_ sender: Any) {
         ClubEventKey = ref.child("clubs").child(ClubKey).childByAutoId().key
-        self.ref.child("clubs").child(ClubKey).child("events").child(ClubEventKey).setValue(["event_name": EventNameTextField.text])
-        
-        // Create QR code
-        // NSData
-        // https://github.com/aschuch/QRCode
-        var text = ClubKey + "#" + ClubEventKey
-        let data = text.data(using: .isoLatin1)!
-        let qrCode = QRCode(data)
-        //qrCode.image
-        
-        QRCodeImage.image = qrCode.image
-        //performSegue(withIdentifier: "goToNewClub", sender: self)
+        self.ref.child("clubs").child(ClubKey).child("events").child(ClubEventKey).setValue(["event_name": EventNameTextField.text, "event_description": EventDescriptionTextView.text])
     }
 }
+
+//extension UIViewController
+//{
+//    func addRemoveKeyboardGesture()
+//    {
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+//            target: self,
+//            action: #selector(UIViewController.dismissKeyboard))
+//
+//        view.addGestureRecognizer(tap)
+//    }
+//
+//    @objc func dismissKeyboard()
+//    {
+//        view.endEditing(true)
+//    }
+//}
 

@@ -23,8 +23,9 @@ class customTextField: UITextField {
     }
 }
 
-class CompleteSignupViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class CompleteSignupViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    @IBOutlet weak var ProfilePicture: UIImageView!
     @IBOutlet weak var FirstNameTextField: UITextField!
     @IBOutlet weak var LastNameTextField: UITextField!
     @IBOutlet weak var FinishSignUpButton: UIButton!
@@ -47,6 +48,7 @@ class CompleteSignupViewController: UIViewController, UIPickerViewDataSource, UI
     var activeDataArray = [String]()
     var pickerView = UIPickerView()
     
+    var storageRef: StorageReference!
     var ref: DatabaseReference!
     var user: User?
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
@@ -55,6 +57,7 @@ class CompleteSignupViewController: UIViewController, UIPickerViewDataSource, UI
         super.viewDidLoad()
         configureAuth()
         configureDatabase()
+        configureStorage()
         FinishSignUpButton.isEnabled = false
         FirstNameTextField.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
         LastNameTextField.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
@@ -81,6 +84,13 @@ class CompleteSignupViewController: UIViewController, UIPickerViewDataSource, UI
         MajorTextField.inputView = pickerView
         ResidenceHallTextField.inputView = pickerView
         GraduationYearTextField.inputView = pickerView
+        
+        ProfilePicture.layer.borderWidth = 1
+        ProfilePicture.layer.masksToBounds = false
+        ProfilePicture.layer.borderColor = UIColor.black.cgColor
+        ProfilePicture.layer.cornerRadius = ProfilePicture.frame.height/2
+        ProfilePicture.contentMode = .scaleAspectFill
+        ProfilePicture.clipsToBounds = true
         
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
@@ -224,6 +234,10 @@ class CompleteSignupViewController: UIViewController, UIPickerViewDataSource, UI
         ref = Database.database().reference()
     }
     
+    func configureStorage() {
+        storageRef = Storage.storage().reference()
+    }
+    
     func configureAuth() {
         _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
             // check if there is a current user
@@ -239,9 +253,67 @@ class CompleteSignupViewController: UIViewController, UIPickerViewDataSource, UI
         }
     }
     
+    @IBAction func selectPicture(_ sender: UITapGestureRecognizer) {
+        FirstNameTextField.resignFirstResponder()
+        LastNameTextField.resignFirstResponder()
+        GenderTextField.resignFirstResponder()
+        CollegeTextField.resignFirstResponder()
+        MajorTextField.resignFirstResponder()
+        ResidenceHallTextField.resignFirstResponder()
+        GraduationYearTextField.resignFirstResponder()
+        
+        let imagePickerController = UIImagePickerController()
+        
+        // Only allow photos to be picked, not taken.
+        imagePickerController.sourceType = .photoLibrary
+        
+        // Make sure ViewController is notified when the user picks an image.
+        
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // Dismiss the picker if the user canceled.
+        dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        // The info dictionary may contain multiple representations of the image. You want to use the original.
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        // Set club image view to display the selected image.
+        ProfilePicture.image = selectedImage
+        
+        // Dismiss the picker.
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func saveProfilePicture(photoData: Data) {
+        let imagePath = "user_photos/" + Auth.auth().currentUser!.uid
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        // create a child node at imagePath with imageData and metadata
+        storageRef!.child(imagePath).putData(photoData, metadata: metadata) { (metadata, error) in
+            if let error = error {
+                print("Error uploading: \(error)")
+                return
+            }
+            let members: [AnyHashable: Any] = ["photo_url": imagePath]
+            self.ref.child("users").child((self.user?.uid)!).updateChildValues(members)
+        }
+    }
+    
     @IBAction func finishSignUp(_ sender: Any) {
         if user != nil {
             self.ref.child("users").child((user?.uid)!).setValue(["firstName": FirstNameTextField.text, "lastName": LastNameTextField.text, "email": user?.email, "gender": GenderTextField.text, "major": MajorTextField.text, "college": CollegeTextField.text, "grad_year": GraduationYearTextField.text, "dorm": ResidenceHallTextField.text])
+            
+            let Data = UIImageJPEGRepresentation(ProfilePicture.image!, 0.8)
+            // Store the image
+            saveProfilePicture(photoData: Data!)
             performSegue(withIdentifier: "finishedSigningUp", sender: self)
         }
         else {

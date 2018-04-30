@@ -17,7 +17,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+//        navigationController?.navigationBar.barTintColor = UIColor(red: 0.03, green: 0.13, blue: 0.91, alpha: 1.0)
+//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+//        navigationController?.navigationBar.tintColor = UIColor.white;
+        
+        var navigationBarAppearace = UINavigationBar.appearance()
+        navigationBarAppearace.tintColor = UIColor.white;
+        navigationBarAppearace.barTintColor = UIColor(red: 0.03, green: 0.13, blue: 0.91, alpha: 1.0)
+        navigationBarAppearace.titleTextAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         FirebaseApp.configure()
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+        UITabBar.appearance().tintColor = UIColor(red: 0.03, green: 0.13, blue: 0.91, alpha: 1.0)
+        
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

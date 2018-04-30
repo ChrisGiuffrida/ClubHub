@@ -21,6 +21,7 @@ class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UIText
     @IBOutlet weak var CreateClubButton: UIButton!
     
     var ref: DatabaseReference!
+    var storageRef: StorageReference!
     var user: User?
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
     var ClubKey: String = ""
@@ -29,9 +30,13 @@ class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UIText
         super.viewDidLoad()
         configureAuth()
         configureDatabase()
+        configureStorage()
         ClubImageView.layer.borderWidth = 1
-        ClubImageView.layer.cornerRadius = (ClubImageView.image?.size.width)!/3
-        ClubImageView.layer.masksToBounds = true
+        ClubImageView.layer.masksToBounds = false
+        ClubImageView.layer.cornerRadius = ClubImageView.frame.height/2
+        ClubImageView.clipsToBounds = true
+        ClubImageView.contentMode = .scaleAspectFill;
+
         
         ClubDescriptionTextView.delegate = self
         ClubDescriptionTextView.text = "Club description..."
@@ -47,10 +52,6 @@ class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UIText
         ClubAbbreviationTextField.layer.cornerRadius = 5
         ClubAbbreviationTextField!.layer.borderColor = UIColor.groupTableViewBackground.cgColor
 
-        ClubImageView.layer.borderWidth = 1
-        ClubImageView.layer.cornerRadius = ClubImageView.frame.height / 2
-        ClubImageView.layer.masksToBounds = true
-        
         self.addRemoveKeyboardGesture()
         CreateClubButton.isEnabled = false
         
@@ -94,6 +95,10 @@ class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UIText
         ref = Database.database().reference()
     }
     
+    func configureStorage() {
+        storageRef = Storage.storage().reference()
+    }
+    
     func configureAuth() {
         _authHandle = Auth.auth().addStateDidChangeListener { (auth: Auth, user: User?) in
             // check if there is a current user
@@ -106,6 +111,22 @@ class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UIText
                 // user must sign in
                 
             }
+        }
+    }
+    
+    func saveClubPhoto(photoData: Data, ClubKey: String) {
+        let imagePath = "club_photos/" + ClubKey
+
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        // create a child node at imagePath with imageData and metadata
+        storageRef!.child(imagePath).putData(photoData, metadata: metadata) { (metadata, error) in
+            if let error = error {
+                print("Error uploading: \(error)")
+                return
+            }
+            let members: [AnyHashable: Any] = ["photo_url": imagePath]
+            self.ref.child("clubs").child(self.ClubKey).updateChildValues(members)
         }
     }
     
@@ -126,6 +147,10 @@ class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UIText
             
             let clubs: [AnyHashable: Any] = [ClubKey: true]
             self.ref.child("users").child((self.user?.uid)!).child("admin_clubs").updateChildValues(clubs)
+            
+            let Data = UIImageJPEGRepresentation(ClubImageView.image!, 0.8)
+            saveClubPhoto(photoData: Data!, ClubKey: ClubKey)
+            
             //performSegue(withIdentifier: "goToNewClub", sender: self)
         }
     }
@@ -138,7 +163,6 @@ class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UIText
         
         let imagePickerController = UIImagePickerController()
         
-        print("I'm here")
         // Only allow photos to be picked, not taken.
         imagePickerController.sourceType = .photoLibrary
         
