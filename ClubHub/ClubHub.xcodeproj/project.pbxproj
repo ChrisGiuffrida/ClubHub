@@ -7,22 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		431463062097F3E6006E671C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431463052097F3E6006E671C /* SearchViewController.swift */; };
+		4323D22A20994AA000113383 /* AnalyticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4323D22920994AA000113383 /* AnalyticsViewController.swift */; };
 		4347AD51207AE0A600C24363 /* CompleteSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4347AD50207AE0A600C24363 /* CompleteSignupViewController.swift */; };
 		43603A12207938D100D6DB56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43603A11207938D100D6DB56 /* AppDelegate.swift */; };
 		43603A14207938D100D6DB56 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43603A13207938D100D6DB56 /* HomeViewController.swift */; };
-		43603A16207938D100D6DB56 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43603A15207938D100D6DB56 /* SecondViewController.swift */; };
 		43603A19207938D100D6DB56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43603A17207938D100D6DB56 /* Main.storyboard */; };
 		43603A1B207938D300D6DB56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43603A1A207938D300D6DB56 /* Assets.xcassets */; };
 		43603A1E207938D300D6DB56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43603A1C207938D300D6DB56 /* LaunchScreen.storyboard */; };
 		43603A2620793CE500D6DB56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43603A2520793CE500D6DB56 /* GoogleService-Info.plist */; };
 		436B2883209655EE0035F5CA /* ClubTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436B2882209655EE0035F5CA /* ClubTableViewController.swift */; };
 		436B2885209658200035F5CA /* FriendTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436B2884209658200035F5CA /* FriendTableViewController.swift */; };
-		436B288720965BF10035F5CA /* ActivityTableViewControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436B288620965BF00035F5CA /* ActivityTableViewControlller.swift */; };
 		436B28892096B8110035F5CA /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436B28882096B8110035F5CA /* QRCodeViewController.swift */; };
 		439E76BF2083CB2E0000158A /* CreateNewClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76BE2083CB2E0000158A /* CreateNewClubViewController.swift */; };
 		439E76C12083CB400000158A /* ClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C02083CB400000158A /* ClubViewController.swift */; };
 		439E76C32083CB540000158A /* CreateClubEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C22083CB540000158A /* CreateClubEventViewController.swift */; };
 		439E76C52083E8800000158A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C42083E8800000158A /* CameraViewController.swift */; };
+		43BDD2D220992AA4000C8238 /* MembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BDD2D120992AA4000C8238 /* MembersTableViewController.swift */; };
+		43BDD2D420992AB6000C8238 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BDD2D320992AB6000C8238 /* EventsTableViewController.swift */; };
 		43CDC08E2079486E00ACD9AA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDC08D2079486E00ACD9AA /* LoginViewController.swift */; };
 		43F6E88E2096164400966C93 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F6E88D2096164400966C93 /* ProfileViewController.swift */; };
 		C5256740735162F191D3F219 /* Pods_ClubHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9D0FEDD1359ECCD3A515CA9 /* Pods_ClubHub.framework */; };
@@ -30,12 +32,13 @@
 
 /* Begin PBXFileReference section */
 		2A251183C51B459A0D23BB50 /* Pods-ClubHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub.release.xcconfig"; sourceTree = "<group>"; };
+		431463052097F3E6006E671C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		4323D22920994AA000113383 /* AnalyticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsViewController.swift; sourceTree = "<group>"; };
 		43241DAC20795FDC00C02808 /* ClubHub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClubHub.entitlements; sourceTree = "<group>"; };
 		4347AD50207AE0A600C24363 /* CompleteSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignupViewController.swift; sourceTree = "<group>"; };
 		43603A0E207938D100D6DB56 /* ClubHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClubHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43603A11207938D100D6DB56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43603A13207938D100D6DB56 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		43603A15207938D100D6DB56 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		43603A18207938D100D6DB56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		43603A1A207938D300D6DB56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43603A1D207938D300D6DB56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -43,12 +46,13 @@
 		43603A2520793CE500D6DB56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		436B2882209655EE0035F5CA /* ClubTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubTableViewController.swift; sourceTree = "<group>"; };
 		436B2884209658200035F5CA /* FriendTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewController.swift; sourceTree = "<group>"; };
-		436B288620965BF00035F5CA /* ActivityTableViewControlller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewControlller.swift; sourceTree = "<group>"; };
 		436B28882096B8110035F5CA /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		439E76BE2083CB2E0000158A /* CreateNewClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewClubViewController.swift; sourceTree = "<group>"; };
 		439E76C02083CB400000158A /* ClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubViewController.swift; sourceTree = "<group>"; };
 		439E76C22083CB540000158A /* CreateClubEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClubEventViewController.swift; sourceTree = "<group>"; };
 		439E76C42083E8800000158A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		43BDD2D120992AA4000C8238 /* MembersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersTableViewController.swift; sourceTree = "<group>"; };
+		43BDD2D320992AB6000C8238 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		43CDC08D2079486E00ACD9AA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		43F6E88D2096164400966C93 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A58F8BF3D72A47ED14AA18F9 /* Pods-ClubHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub.debug.xcconfig"; sourceTree = "<group>"; };
@@ -102,7 +106,7 @@
 				43CDC08D2079486E00ACD9AA /* LoginViewController.swift */,
 				4347AD50207AE0A600C24363 /* CompleteSignupViewController.swift */,
 				43603A13207938D100D6DB56 /* HomeViewController.swift */,
-				43603A15207938D100D6DB56 /* SecondViewController.swift */,
+				431463052097F3E6006E671C /* SearchViewController.swift */,
 				439E76BE2083CB2E0000158A /* CreateNewClubViewController.swift */,
 				43603A17207938D100D6DB56 /* Main.storyboard */,
 				439E76C42083E8800000158A /* CameraViewController.swift */,
@@ -112,11 +116,13 @@
 				43F6E88D2096164400966C93 /* ProfileViewController.swift */,
 				436B2882209655EE0035F5CA /* ClubTableViewController.swift */,
 				436B2884209658200035F5CA /* FriendTableViewController.swift */,
-				436B288620965BF00035F5CA /* ActivityTableViewControlller.swift */,
 				43603A1A207938D300D6DB56 /* Assets.xcassets */,
 				43603A1C207938D300D6DB56 /* LaunchScreen.storyboard */,
 				43603A1F207938D300D6DB56 /* Info.plist */,
 				43603A2520793CE500D6DB56 /* GoogleService-Info.plist */,
+				43BDD2D120992AA4000C8238 /* MembersTableViewController.swift */,
+				43BDD2D320992AB6000C8238 /* EventsTableViewController.swift */,
+				4323D22920994AA000113383 /* AnalyticsViewController.swift */,
 			);
 			path = ClubHub;
 			sourceTree = "<group>";
@@ -264,6 +270,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -289,6 +296,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -322,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				431463062097F3E6006E671C /* SearchViewController.swift in Sources */,
 				436B2883209655EE0035F5CA /* ClubTableViewController.swift in Sources */,
 				43CDC08E2079486E00ACD9AA /* LoginViewController.swift in Sources */,
 				4347AD51207AE0A600C24363 /* CompleteSignupViewController.swift in Sources */,
@@ -329,13 +338,14 @@
 				439E76C32083CB540000158A /* CreateClubEventViewController.swift in Sources */,
 				436B2885209658200035F5CA /* FriendTableViewController.swift in Sources */,
 				439E76BF2083CB2E0000158A /* CreateNewClubViewController.swift in Sources */,
-				436B288720965BF10035F5CA /* ActivityTableViewControlller.swift in Sources */,
-				43603A16207938D100D6DB56 /* SecondViewController.swift in Sources */,
+				43BDD2D420992AB6000C8238 /* EventsTableViewController.swift in Sources */,
 				439E76C12083CB400000158A /* ClubViewController.swift in Sources */,
 				43603A12207938D100D6DB56 /* AppDelegate.swift in Sources */,
+				43BDD2D220992AA4000C8238 /* MembersTableViewController.swift in Sources */,
 				43603A14207938D100D6DB56 /* HomeViewController.swift in Sources */,
 				436B28892096B8110035F5CA /* QRCodeViewController.swift in Sources */,
 				439E76C52083E8800000158A /* CameraViewController.swift in Sources */,
+				4323D22A20994AA000113383 /* AnalyticsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

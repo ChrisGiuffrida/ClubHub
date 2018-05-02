@@ -15,7 +15,6 @@ import QRCode
 class ProfileViewController: UIViewController {
     
 
-    @IBOutlet weak var SignOutButton: UIButton!
     @IBOutlet weak var ProfilePicture: UIImageView!
     @IBOutlet weak var ClubsTextLabel: UILabel!
     @IBOutlet weak var AttendingClubLabel: UILabel!
@@ -25,7 +24,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var ProfileSegmentControl: UISegmentedControl!
     @IBOutlet weak var ClubsView: UIView!
     @IBOutlet weak var FriendsView: UIView!
-    @IBOutlet weak var ActivityView: UIView!
+    @IBOutlet weak var ProfileButton: UIButton!
     
     
     var ref: DatabaseReference!
@@ -38,19 +37,48 @@ class ProfileViewController: UIViewController {
     
     var ClubViewController: UITableViewController!
     var FriendsViewController: UITableViewController!
-    var ActivityViewController: UITableViewController!
     
     var user_description: String = ""
+    var UserID: String = ""
+    var isFollowing: Bool = false
+    
+    override func viewWillAppear(_ animated: Bool) {
+        ProfileButton.isHidden = true
+        if UserID == Auth.auth().currentUser!.uid {
+            var settings = UIImage(named: "Settings")
+            settings = settings?.withRenderingMode(.alwaysTemplate)
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: settings, style: .plain, target: self, action: #selector(adjustSettings))
+            navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+            ProfileButton.setTitle("Edit Profile", for: .normal)
+            ProfileButton.isHidden = false
+        }
+        else {
+            ref.child("users").child(UserID).child("followers").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: {(snapshot) in
+                if snapshot.value is NSNull {
+                    self.ProfileButton.setTitle("Follow", for: .normal)
+                    self.ProfileButton.isHidden = false
+                }
+                else {
+                    self.ProfileButton.setTitle("Unfollow", for: .normal)
+                    self.ProfileButton.isHidden = false
+                    self.isFollowing = true
+                }
+            })
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ClubViewController = self.childViewControllers[0] as! ClubTableViewController
         FriendsViewController = self.childViewControllers[1] as! FriendTableViewController
-        ActivityViewController = self.childViewControllers[2] as! ActivityTableViewController
 
         configureAuth()
         configureDatabase()
         configureStorage()
+        
+        if UserID == "" {
+            UserID = Auth.auth().currentUser!.uid
+        }
         
         ProfilePicture.layer.borderWidth = 1
         ProfilePicture.layer.masksToBounds = false
@@ -58,21 +86,24 @@ class ProfileViewController: UIViewController {
         ProfilePicture.clipsToBounds = true
         ProfilePicture.contentMode = .scaleAspectFill;
         
-        ref.child("users").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("users").child(UserID).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
             let grad_year = value?["grad_year"] as? String ?? "GradYear"
             let major = value?["major"] as? String ?? "Major"
             let college = value?["college"] as? String ?? "College"
             let university = "University of Notre Dame"
-
+            let firstName = value?["firstName"] as? String
+            let lastName = value?["lastName"] as? String
+            self.navigationItem.title = firstName! + " " + lastName!
             self.UserDescriptionTextLabel.text = "Class of " + grad_year + "\n" + major + "\n" + college + "\n" + university
 
+            
         }) { (error) in
             print(error.localizedDescription)
         }
 
-        let pictureRef = storageRef.child("user_photos/" + Auth.auth().currentUser!.uid)
+        let pictureRef = storageRef.child("user_photos/" + UserID)
         // Download in memory with a maximum allowed size of 15MB (1 * 1024 * 1024 bytes)
         pictureRef.getData(maxSize: 15 * 1024 * 1024) { data, error in
             if let error = error {
@@ -85,7 +116,6 @@ class ProfileViewController: UIViewController {
         
         ClubsView.isHidden = false
         FriendsView.isHidden = true
-        ActivityView.isHidden = true
     }
     
     func configureDatabase() {
@@ -111,36 +141,72 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // get a reference to the second view controller
+        if segue.identifier == "editProfile" {
+            let secondViewController = segue.destination as! CompleteSignupViewController
+            // set a variable in the second view controller with the String to pass
+            secondViewController.isEditing = true
+        }
+    }
+    
+    @IBAction func doProfileButtonAction(_ sender: Any) {
+        if UserID == Auth.auth().currentUser!.uid {
+            performSegue(withIdentifier: "editProfile", sender: self)
+        }
+        else if isFollowing {
+            ref.child("users").child(Auth.auth().currentUser!.uid).child("following").child(UserID).removeValue()
+            ref.child("users").child(UserID).child("followers").child(Auth.auth().currentUser!.uid).removeValue()
+            
+            ProfileButton.setTitle("Follow", for: .normal)
+            isFollowing = false
+        }
+        else {
+            let user: [AnyHashable: Any] = [UserID: true]
+            ref.child("users").child(Auth.auth().currentUser!.uid).child("following").updateChildValues(user)
+            
+            let myself: [AnyHashable: Any] = [(Auth.auth().currentUser!.uid): true]
+            ref.child("users").child(UserID).child("followers").updateChildValues(myself)
+            
+            ProfileButton.setTitle("Unfollow", for: .normal)
+            isFollowing = true
+        }
+    }
+    
+    @objc func adjustSettings() {
+        let alertVC = UIAlertController(title: "Sign Out?", message: "Would you like to sign out of your account?", preferredStyle: .alert)
+        let alertActionCancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let alertActionOkay = UIAlertAction(title: "Continue", style: .default) {
+            (_) in
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+                print("Error signing out: %@", signOutError)
+            }
+            self.performSegue(withIdentifier: "loggingOut", sender: self)
+        }
+        alertVC.addAction(alertActionCancel)
+        alertVC.addAction(alertActionOkay)
+        self.present(alertVC, animated: true) {}
+    }
+    
     @IBAction func indexChanged(_ sender: Any) {
         switch ProfileSegmentControl.selectedSegmentIndex {
             case 0:
                 ClubsView.isHidden = false
                 FriendsView.isHidden = true
-                ActivityView.isHidden = true
                 break
             case 1:
                 ClubsView.isHidden = true
                 FriendsView.isHidden = false
-                ActivityView.isHidden = true
                 break
             case 2:
                 ClubsView.isHidden = true
                 FriendsView.isHidden = true
-                ActivityView.isHidden = false
                 break
             default:
                 break
         }
-    }
-    
-    
-    @IBAction func signOut(_ sender: Any) {
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
-        }
-        //performSegue(withIdentifier: "LogOut", sender: sender)
     }
 }

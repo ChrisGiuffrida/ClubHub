@@ -19,6 +19,10 @@ class ClubViewController: UIViewController {
     @IBOutlet weak var UpcomingEventLabel: UILabel!
     @IBOutlet weak var PastEventLabel: UILabel!
     @IBOutlet weak var ClubDescriptionLabel: UILabel!
+    @IBOutlet weak var ClubButton: UIButton!
+    
+    @IBOutlet weak var AnalyticsButton: UIButton!
+    var image: UIImage!
     
     
     @IBOutlet weak var ClubSegmentControl: UISegmentedControl!
@@ -30,6 +34,9 @@ class ClubViewController: UIViewController {
     var ClubName: String = ""
     var ClubEventName: String = ""
     var CameFromCamera: Bool = false
+    var CameFromCreation: Bool = false
+    var isAdmin: Bool = false
+    var isMember: Bool = false
     
     var ref: DatabaseReference!
     var storageRef: StorageReference!
@@ -37,6 +44,8 @@ class ClubViewController: UIViewController {
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
     fileprivate var _clubPictureHandle: DatabaseHandle!
 
+    var MembersViewController: UITableViewController!
+    var EventsViewController: UITableViewController!
     
     override func viewDidAppear(_ animated: Bool) {
         if(CameFromCamera == true) {
@@ -62,6 +71,52 @@ class ClubViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if CameFromCreation {
+            ClubPicture.image = image
+        }
+        
+        AnalyticsButton.isHidden = true
+        ClubButton.isHidden = true
+        ref.child("users").child(Auth.auth().currentUser!.uid).child("admin_clubs").observeSingleEvent(of: .value, with: {(snapshot) in
+                for child in snapshot.children {
+                    let child = child as? DataSnapshot
+                    if let key = child?.key {
+                        if key == self.ClubKey {
+                            self.ClubButton.isHidden = false
+                            self.ClubButton.setTitle("Edit Club", for: .normal)
+                            self.isAdmin = true
+                            self.AnalyticsButton.isHidden = false
+                            
+                            var plus = UIImage(named: "Plus")
+                            plus = plus?.withRenderingMode(.alwaysTemplate)
+                            
+                            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: plus, style: .plain, target: self, action: #selector(self.addEvent))
+                            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+                        }
+                    }
+                }
+                if !self.isAdmin {
+                    self.ref.child("users").child(Auth.auth().currentUser!.uid).child("clubs").observeSingleEvent(of: .value, with: {(snapshot) in
+                        for child in snapshot.children {
+                            let child = child as? DataSnapshot
+                            if let key = child?.key {
+                                if key == self.ClubKey {
+                                    self.ClubButton.isHidden = false
+                                    self.ClubButton.setTitle("Leave Club", for: .normal)
+                                    self.isMember = true
+                                }
+                            }
+                        }
+                        if !self.isMember{
+                            self.ClubButton.setTitle("Join Club", for: .normal)
+                            self.ClubButton.isHidden = false
+                        }
+                    })
+                }
+            })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,18 +124,23 @@ class ClubViewController: UIViewController {
         configureDatabase()
         configureStorage()
         
+        MembersViewController = self.childViewControllers[0] as! MembersTableViewController
+        //EventsViewController = self.childViewControllers[1] as! EventsTableViewController
+
+        
+        let pictureRef = storageRef.child("club_photos/" + ClubKey)
+        // Download in memory with a maximum allowed size of 15MB (1 * 1024 * 1024 bytes)
+        pictureRef.getData(maxSize: 15 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+                print(error.localizedDescription)
+            } else {
+                // Data for "images/island.jpg" is returned
+                self.ClubPicture.image = UIImage(data: data!)
+            }
+        }
+    
         self.navigationItem.setHidesBackButton(true, animated:true);
-        
-        var plus = UIImage(named: "Plus")
-        plus = plus?.withRenderingMode(.alwaysTemplate)
-        
-        var analytics = UIImage(named: "Chart")
-        analytics = analytics?.withRenderingMode(.alwaysTemplate)
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: analytics, style: .plain, target: self, action: #selector(viewAnalytics))
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: plus, style: .plain, target: self, action: #selector(addEvent))
-        navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
         ClubPicture.layer.borderWidth = 1
         ClubPicture.layer.masksToBounds = false
@@ -94,8 +154,8 @@ class ClubViewController: UIViewController {
             let clubName = value?["club_name"] as? String ?? "ClubName"
             let clubDescriptionLabel = value?["club_description"] as? String
             let clubAbbreviation = value?["club_abbreviation"] as? String
-            self.ClubDescriptionLabel.text = clubName + "\n" + clubDescriptionLabel!
-            self.navigationItem.title = clubAbbreviation
+            self.ClubDescriptionLabel.text = clubDescriptionLabel!
+            self.navigationItem.title = clubName
             //self.ClubNameLabel.text = value?["club_name"] as? String ?? "ClubName"
         }) { (error) in
             print(error.localizedDescription)
@@ -108,18 +168,6 @@ class ClubViewController: UIViewController {
                 self.ClubEventName = value?["event_name"] as? String ?? "EventName"
             }) { (error) in
                 print(error.localizedDescription)
-            }
-        }
-        
-        let pictureRef = storageRef.child("club_photos/" + ClubKey)
-        // Download in memory with a maximum allowed size of 15MB (1 * 1024 * 1024 bytes)
-        pictureRef.getData(maxSize: 15 * 1024 * 1024) { data, error in
-            if let error = error {
-                // Uh-oh, an error occurred!
-                print(error.localizedDescription)
-            } else {
-                // Data for "images/island.jpg" is returned
-                self.ClubPicture.image = UIImage(data: data!)
             }
         }
         
@@ -155,13 +203,31 @@ class ClubViewController: UIViewController {
         }
     }
     
-    @objc func addEvent() {
-        performSegue(withIdentifier: "addClubEvent", sender: self)
+    @IBAction func doClubButtonAction(_ sender: Any) {
+        if isAdmin {
+            performSegue(withIdentifier: "editClub", sender: self)
+        }
+        else if isMember {
+            ref.child("users").child(Auth.auth().currentUser!.uid).child("clubs").child(ClubKey).removeValue()
+            ref.child("clubs").child(ClubKey).child("members").child(Auth.auth().currentUser!.uid).removeValue()
+
+            ClubButton.setTitle("Join Club", for: .normal)
+            isMember = false
+        }
+        else {
+            let club: [AnyHashable: Any] = [ClubKey: true]
+            ref.child("users").child(Auth.auth().currentUser!.uid).child("clubs").updateChildValues(club)
+            
+            let member: [AnyHashable: Any] = [(Auth.auth().currentUser!.uid): true]
+            ref.child("clubs").child(ClubKey).child("members").updateChildValues(member)
+            
+            ClubButton.setTitle("Leave Club", for: .normal)
+            isMember = true
+        }
     }
     
-    @objc func viewAnalytics() {
-        //performSegue(withIdentifier: "addClubEvent", sender: self)
-        print("View Analytics")
+    @objc func addEvent() {
+        performSegue(withIdentifier: "addClubEvent", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -169,6 +235,21 @@ class ClubViewController: UIViewController {
         // get a reference to the second view controller
         if segue.identifier == "addClubEvent" {
             let secondViewController = segue.destination as! CreateClubEventViewController
+            secondViewController.ClubKey = ClubKey
+        }
+        
+        if segue.identifier == "memberTableSegue" {
+            let secondViewController = segue.destination as! MembersTableViewController
+            secondViewController.ClubKey = ClubKey
+        }
+        
+        if segue.identifier == "eventTableSegue" {
+            let secondViewController = segue.destination as! EventsTableViewController
+            secondViewController.ClubKey = ClubKey
+        }
+        
+        if segue.identifier == "viewAnalytics" {
+            let secondViewController = segue.destination as! AnalyticsViewController
             secondViewController.ClubKey = ClubKey
         }
     }
@@ -187,6 +268,13 @@ class ClubViewController: UIViewController {
             break
         }
     }
+    
+
+    @IBAction func viewAnalytics(_ sender: Any) {
+    }
+    
+    
+    
 }
 
 extension UIImage {
@@ -200,3 +288,12 @@ extension UIImage {
     }
 }
 
+class MemberTableCell: UITableViewCell {
+    @IBOutlet weak var TableCellImage: UIImageView!
+    override func layoutSubviews() {
+        TableCellImage.layer.cornerRadius = TableCellImage.bounds.height / 2
+        TableCellImage.clipsToBounds = true
+        TableCellImage.layer.borderWidth = 1
+        TableCellImage.contentMode = .scaleAspectFill
+    }
+}

@@ -35,6 +35,9 @@ class CompleteSignupViewController: UIViewController, UIPickerViewDataSource, UI
     @IBOutlet weak var ResidenceHallTextField: customTextField!
     @IBOutlet weak var GraduationYearTextField: customTextField!
     
+    @IBOutlet weak var EditProfileButton: UIButton!
+    var editingProfile: Bool = false
+    
     let genders = ["Male", "Female", "Other"]
     
     let colleges = ["College of Arts and Letters", "College of Business", "College of Engineering", "College of Science", "School of Architecture"]
@@ -52,6 +55,48 @@ class CompleteSignupViewController: UIViewController, UIPickerViewDataSource, UI
     var ref: DatabaseReference!
     var user: User?
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if isEditing {
+            EditProfileButton.setTitle("Submit Changes", for: .normal)
+            self.navigationItem.title = "Edit Profile"
+            
+            ref.child("users").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                let grad_year = value?["grad_year"] as? String ?? "GradYear"
+                let major = value?["major"] as? String ?? "Major"
+                let college = value?["college"] as? String ?? "College"
+                let university = "University of Notre Dame"
+                let firstName = value?["firstName"] as? String
+                let lastName = value?["lastName"] as? String
+                let gender = value?["gender"] as? String
+                let residence = value?["dorm"] as? String
+                
+                
+                self.FirstNameTextField.text = firstName
+                self.LastNameTextField.text = lastName
+                self.MajorTextField.text = major
+                self.CollegeTextField.text = college
+                self.GenderTextField.text = gender
+                self.ResidenceHallTextField.text = residence
+                self.GraduationYearTextField.text = grad_year
+            })
+            
+            let pictureRef = storageRef.child("user_photos/" + Auth.auth().currentUser!.uid)
+            // Download in memory with a maximum allowed size of 15MB (1 * 1024 * 1024 bytes)
+            pictureRef.getData(maxSize: 15 * 1024 * 1024) { data, error in
+                if let error = error {
+                    // Uh-oh, an error occurred!
+                    print(error.localizedDescription)
+                } else {
+                    self.ProfilePicture.image = UIImage(data: data!)
+                }
+            }
+        }
+    }
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -314,7 +359,12 @@ class CompleteSignupViewController: UIViewController, UIPickerViewDataSource, UI
             let Data = UIImageJPEGRepresentation(ProfilePicture.image!, 0.8)
             // Store the image
             saveProfilePicture(photoData: Data!)
-            performSegue(withIdentifier: "finishedSigningUp", sender: self)
+            if isEditing {
+                navigationController?.popViewController(animated: true)
+            }
+            else {
+                performSegue(withIdentifier: "finishedSigningUp", sender: self)
+            }
         }
         else {
             

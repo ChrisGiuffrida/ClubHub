@@ -17,5 +17,6 @@ target 'ClubHub' do
   pod 'FacebookLogin'
   pod 'FacebookShare'
   pod 'QRCode'
+  pod 'Charts'
 
 end

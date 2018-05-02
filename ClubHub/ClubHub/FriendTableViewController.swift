@@ -75,7 +75,8 @@ class FriendTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell! = FriendsTable.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath)
         let friendInfo = friends[indexPath.row]
-        cell!.textLabel?.text = friendInfo.FriendName
+        let labelView = cell.viewWithTag(2) as! UILabel!
+        labelView?.text = friendInfo.FriendName
         return cell!
     }
     

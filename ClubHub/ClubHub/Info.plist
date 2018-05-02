@@ -76,9 +76,6 @@
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
@@ -87,12 +84,10 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allows you to add photos for profile pictures and clubs.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Allows the user the ability to save club event QR codes to their photos to then print or email.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allows you to add photos for profile pictures and clubs.</string>
 </dict>
 </plist>

@@ -137,6 +137,9 @@ class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UIText
         
         // set a variable in the second view controller with the String to pass
         secondViewController.ClubKey = ClubKey
+        
+        secondViewController.image = ClubImageView.image
+        secondViewController.CameFromCreation = true
     }
     
     @IBAction func createClub(_ sender: Any) {

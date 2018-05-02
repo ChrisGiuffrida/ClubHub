@@ -10,40 +10,59 @@ import Foundation
 import UIKit
 import Firebase
 
-class ClubTableViewController: UITableViewController {
+class MembersTableViewController: UITableViewController {
     var ref: DatabaseReference!
     var storageRef: StorageReference!
     var user: User?
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
-    fileprivate var _clubHandle: DatabaseHandle!
+    fileprivate var _membersHandle: DatabaseHandle!
+    fileprivate var _membersHandleDelete: DatabaseHandle!
+
     
-    var clubs: [(ClubKey: String, ClubName: String)]! = []
-    var ClubsTable: UITableView!
+    var members: [(MemberKey: String, MemberName: String)]! = []
+    var MembersTable: UITableView!
+    
+    var ClubKey: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ClubsTable = self.tableView
+        MembersTable = self.tableView
         
         configureAuth()
         configureDatabase()
         configureStorage()
     }
     
+    func setClubKey(ClubKey: String) {
+        self.ClubKey = ClubKey
+    }
+    
     func configureDatabase() {
         ref = Database.database().reference()
         
-        _clubHandle = ref.child("users").child(Auth.auth().currentUser!.uid).child("clubs").observe(.childAdded) { (snapshot: DataSnapshot) in
-            let clubKey = snapshot.key as! String
-            self.ref.child("clubs").child(clubKey).observeSingleEvent(of: .value, with: { (snapshot) in
+        _membersHandle = ref.child("clubs").child(ClubKey).child("members").observe(.childAdded) { (snapshot: DataSnapshot) in
+            let memberKey = snapshot.key as! String
+            self.ref.child("users").child(memberKey).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
-                let clubName = value?["club_name"] as? String ?? "Club"
-                self.clubs.append((ClubKey: clubKey, ClubName: clubName))
-                self.ClubsTable.insertRows(at: [IndexPath(row: self.clubs.count-1, section: 0)], with: .automatic)
+                let firstName = value?["firstName"] as? String
+                let lastName = value?["lastName"] as? String
+                let memberName = firstName! + " " + lastName!
+                self.members.append((MemberKey: memberKey, MemberName: memberName))
+                self.MembersTable.insertRows(at: [IndexPath(row: self.members.count-1, section: 0)], with: .automatic)
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
+        
+        _membersHandleDelete = ref.child("clubs").child(ClubKey).child("members").observe(.childRemoved) { (snapshot: DataSnapshot) in
+            for (index, member) in self.members.enumerated() {
+                if snapshot.key == member.MemberKey {
+                    self.members.remove(at: index)
+                }
+            }
+            self.MembersTable.reloadData()
+            }
     }
     
     func configureStorage() {
@@ -66,23 +85,21 @@ class ClubTableViewController: UITableViewController {
     }
     
     deinit {
-        ref.child("users").child(Auth.auth().currentUser!.uid).child("clubs").removeObserver(withHandle: _clubHandle)
+        ref.child("clubs").child(ClubKey).child("members").removeObserver(withHandle: _membersHandle)
+        ref.child("clubs").child(ClubKey).child("members").removeObserver(withHandle: _membersHandleDelete)
         //Auth.auth().removeStateDidChangeListener(_authHandle)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell! = ClubsTable.dequeueReusableCell(withIdentifier: "clubCell", for: indexPath)
-        let clubInfo = clubs[indexPath.row]        
+        let cell: UITableViewCell! = MembersTable.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath)
+        let memberInfo = members[indexPath.row]
         let labelView = cell.viewWithTag(2) as! UILabel!
-        labelView?.text = clubInfo.ClubName
-        //let imageView = cell.viewWithTag(1) as! UIImageView?
-        //imageView?.image = clubInfo.ClubPicture
-        
+        labelView?.text = memberInfo.MemberName
         return cell!
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.clubs.count
+        return self.members.count
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
