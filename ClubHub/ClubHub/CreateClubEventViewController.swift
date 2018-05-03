@@ -14,6 +14,8 @@ import QRCode
 
 class CreateClubEventViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
+    @IBOutlet weak var LocationTextField: UITextField!
+    @IBOutlet weak var DateTextField: customTextField!
     @IBOutlet weak var AddEventButton: UIButton!
     @IBOutlet weak var EventNameTextField: UITextField!
     @IBOutlet weak var EventDescriptionTextView: UITextView!
@@ -30,12 +32,13 @@ class CreateClubEventViewController: UIViewController, UITextFieldDelegate, UITe
         configureDatabase()
         
         EventDescriptionTextView.delegate = self
-        EventDescriptionTextView.text = "Club description..."
+        EventDescriptionTextView.text = "Event description..."
         EventDescriptionTextView.textColor = UIColor.groupTableViewBackground
         EventDescriptionTextView!.layer.borderWidth = 0.5
         EventDescriptionTextView.layer.cornerRadius = 5
         EventDescriptionTextView!.layer.borderColor = UIColor.groupTableViewBackground.cgColor
         
+        self.addRemoveKeyboardGesture()
         //FinishSignUpButton.isEnabled = false
         
         //FirstNameTextField.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
@@ -98,11 +101,49 @@ class CreateClubEventViewController: UIViewController, UITextFieldDelegate, UITe
         
         // set a variable in the second view controller with the String to pass
         secondViewController.text = ClubKey + "#" + ClubEventKey
+        secondViewController.ClubKey = ClubKey
     }
     
+    @IBAction func textFieldEditing(_ sender: customTextField) {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        let datePicker: UIDatePicker = UIDatePicker()
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelPicker))
+        
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        DateTextField.inputAccessoryView = toolBar
+        DateTextField.inputView = datePicker
+        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+    }
     @IBAction func addNewEvent(_ sender: Any) {
+        let epochFormatter = DateFormatter()
+        epochFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
+        let date_epoch = epochFormatter.date(from: DateTextField.text!)?.timeIntervalSince1970
         ClubEventKey = ref.child("clubs").child(ClubKey).childByAutoId().key
-        self.ref.child("clubs").child(ClubKey).child("events").child(ClubEventKey).setValue(["event_name": EventNameTextField.text, "event_description": EventDescriptionTextView.text])
+        self.ref.child("clubs").child(ClubKey).child("events").child(ClubEventKey).setValue(["event_name": EventNameTextField.text, "event_description": EventDescriptionTextView.text, "event_time": date_epoch, "event_location": LocationTextField.text])
+    }
+    
+    @objc func dateChanged(_ sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        DateTextField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    @objc func donePicker() {
+        DateTextField.resignFirstResponder()
+    }
+    
+    @objc func cancelPicker() {
+            DateTextField.text = ""
+            DateTextField.resignFirstResponder()
     }
 }
 

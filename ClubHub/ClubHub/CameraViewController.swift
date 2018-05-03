@@ -19,6 +19,7 @@ class CameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     var ClubKey: String = ""
     var ClubEventKey: String = ""
+    var segued: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,8 +149,10 @@ class CameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         catch {
 
         }
-        
-        performSegue(withIdentifier: "signInToClub", sender: self)
+        if !segued {
+            segued = true
+            performSegue(withIdentifier: "signInToClub", sender: self)
+        }
     }
     
 }

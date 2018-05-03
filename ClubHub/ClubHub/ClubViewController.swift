@@ -16,7 +16,6 @@ class ClubViewController: UIViewController {
     
     @IBOutlet weak var ClubPicture: UIImageView!
     @IBOutlet weak var ClubMemberLabel: UILabel!
-    @IBOutlet weak var UpcomingEventLabel: UILabel!
     @IBOutlet weak var PastEventLabel: UILabel!
     @IBOutlet weak var ClubDescriptionLabel: UILabel!
     @IBOutlet weak var ClubButton: UIButton!
@@ -115,6 +114,15 @@ class ClubViewController: UIViewController {
                     })
                 }
             })
+        
+        ref.child("clubs").child(ClubKey).child("members").observe(.value, with:{ (snapshot: DataSnapshot) in
+            self.ClubMemberLabel.text = String(Int(snapshot.childrenCount))
+        })
+        
+        
+        ref.child("clubs").child(ClubKey).child("events").observe(.value, with:{ (snapshot: DataSnapshot) in
+            self.PastEventLabel.text = String(Int(snapshot.childrenCount))
+        })
     }
     
     override func viewDidLoad() {
@@ -125,7 +133,7 @@ class ClubViewController: UIViewController {
         configureStorage()
         
         MembersViewController = self.childViewControllers[0] as! MembersTableViewController
-        //EventsViewController = self.childViewControllers[1] as! EventsTableViewController
+        EventsViewController = self.childViewControllers[1] as! EventsTableViewController
 
         
         let pictureRef = storageRef.child("club_photos/" + ClubKey)
@@ -139,9 +147,7 @@ class ClubViewController: UIViewController {
                 self.ClubPicture.image = UIImage(data: data!)
             }
         }
-    
-        self.navigationItem.setHidesBackButton(true, animated:true);
-        
+            
         ClubPicture.layer.borderWidth = 1
         ClubPicture.layer.masksToBounds = false
         ClubPicture.layer.cornerRadius = ClubPicture.frame.height/2

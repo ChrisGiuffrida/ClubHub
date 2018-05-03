@@ -38,6 +38,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         self.SearchBar.delegate = self
         self.SearchResultsTable.dataSource = self
         self.SearchResultsTable.delegate = self
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -127,7 +128,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
                                     let image = UIImage(data: data!)
                                     if key != Auth.auth().currentUser!.uid {
                                         self.people.append((Name: first_name + " " + last_name, ProfilePicture: image!, UserID: key))
-                                        print(first_name)
                                         self.SearchResultsTable.insertRows(at: [IndexPath(row: self.people.count-1, section: 0)], with: .automatic)
                                     }
                                 }

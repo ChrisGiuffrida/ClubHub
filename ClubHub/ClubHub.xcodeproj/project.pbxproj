@@ -23,9 +23,11 @@
 		439E76C12083CB400000158A /* ClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C02083CB400000158A /* ClubViewController.swift */; };
 		439E76C32083CB540000158A /* CreateClubEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C22083CB540000158A /* CreateClubEventViewController.swift */; };
 		439E76C52083E8800000158A /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439E76C42083E8800000158A /* CameraViewController.swift */; };
+		43BBA941209997A900E3573C /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BBA940209997A900E3573C /* EventViewController.swift */; };
 		43BDD2D220992AA4000C8238 /* MembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BDD2D120992AA4000C8238 /* MembersTableViewController.swift */; };
 		43BDD2D420992AB6000C8238 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BDD2D320992AB6000C8238 /* EventsTableViewController.swift */; };
 		43CDC08E2079486E00ACD9AA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CDC08D2079486E00ACD9AA /* LoginViewController.swift */; };
+		43DF31EC20996BDC0030AE03 /* YourClubsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF31EB20996BDC0030AE03 /* YourClubsViewController.swift */; };
 		43F6E88E2096164400966C93 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F6E88D2096164400966C93 /* ProfileViewController.swift */; };
 		C5256740735162F191D3F219 /* Pods_ClubHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9D0FEDD1359ECCD3A515CA9 /* Pods_ClubHub.framework */; };
 /* End PBXBuildFile section */
@@ -51,9 +53,11 @@
 		439E76C02083CB400000158A /* ClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubViewController.swift; sourceTree = "<group>"; };
 		439E76C22083CB540000158A /* CreateClubEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClubEventViewController.swift; sourceTree = "<group>"; };
 		439E76C42083E8800000158A /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		43BBA940209997A900E3573C /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		43BDD2D120992AA4000C8238 /* MembersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersTableViewController.swift; sourceTree = "<group>"; };
 		43BDD2D320992AB6000C8238 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		43CDC08D2079486E00ACD9AA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		43DF31EB20996BDC0030AE03 /* YourClubsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourClubsViewController.swift; sourceTree = "<group>"; };
 		43F6E88D2096164400966C93 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A58F8BF3D72A47ED14AA18F9 /* Pods-ClubHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClubHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClubHub/Pods-ClubHub.debug.xcconfig"; sourceTree = "<group>"; };
 		F9D0FEDD1359ECCD3A515CA9 /* Pods_ClubHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClubHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +127,8 @@
 				43BDD2D120992AA4000C8238 /* MembersTableViewController.swift */,
 				43BDD2D320992AB6000C8238 /* EventsTableViewController.swift */,
 				4323D22920994AA000113383 /* AnalyticsViewController.swift */,
+				43DF31EB20996BDC0030AE03 /* YourClubsViewController.swift */,
+				43BBA940209997A900E3573C /* EventViewController.swift */,
 			);
 			path = ClubHub;
 			sourceTree = "<group>";
@@ -335,11 +341,13 @@
 				43CDC08E2079486E00ACD9AA /* LoginViewController.swift in Sources */,
 				4347AD51207AE0A600C24363 /* CompleteSignupViewController.swift in Sources */,
 				43F6E88E2096164400966C93 /* ProfileViewController.swift in Sources */,
+				43BBA941209997A900E3573C /* EventViewController.swift in Sources */,
 				439E76C32083CB540000158A /* CreateClubEventViewController.swift in Sources */,
 				436B2885209658200035F5CA /* FriendTableViewController.swift in Sources */,
 				439E76BF2083CB2E0000158A /* CreateNewClubViewController.swift in Sources */,
 				43BDD2D420992AB6000C8238 /* EventsTableViewController.swift in Sources */,
 				439E76C12083CB400000158A /* ClubViewController.swift in Sources */,
+				43DF31EC20996BDC0030AE03 /* YourClubsViewController.swift in Sources */,
 				43603A12207938D100D6DB56 /* AppDelegate.swift in Sources */,
 				43BDD2D220992AA4000C8238 /* MembersTableViewController.swift in Sources */,
 				43603A14207938D100D6DB56 /* HomeViewController.swift in Sources */,

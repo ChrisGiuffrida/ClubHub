@@ -36,6 +36,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate,  FBSDKLoginBut
         FBSDKLoginManager().logOut()
         
         configureDatabase()
+        self.addRemoveKeyboardGesture()
+
     }
     
     override func didReceiveMemoryWarning() {

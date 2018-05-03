@@ -18,11 +18,13 @@ class QRCodeViewController: UIViewController {
     @IBOutlet weak var SaveQRCodeButton: UIButton!
     
     var text: String = ""
+    var ClubKey: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //self.navigationItem.setHidesBackButton(true, animated:true);
+                
+        self.navigationItem.setHidesBackButton(true, animated:true);
+
         
         // https://github.com/aschuch/QRCode
         let data = text.data(using: .isoLatin1)!
@@ -40,9 +42,16 @@ class QRCodeViewController: UIViewController {
             present(ac, animated: true)
         } else {
             let ac = UIAlertController(title: "Saved!", message: "Your QR code has been saved to your photos.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (action) in
+                self.performSegue(withIdentifier: "savedQR", sender: self)
+                }))
             present(ac, animated: true)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let secondViewController = segue.destination as! ClubViewController
+        secondViewController.ClubKey = ClubKey
     }
     
     override func viewWillDisappear(_ animated : Bool) {
@@ -50,7 +59,11 @@ class QRCodeViewController: UIViewController {
         
         if self.isMovingFromParentViewController {
             let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
-            self.navigationController!.popToViewController(viewControllers[viewControllers.count - 2], animated: true)
+            for vc in viewControllers {
+                if vc is ClubViewController {
+                    self.navigationController!.popToViewController(vc, animated: true)
+                }
+            }
         }
     }
     

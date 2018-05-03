@@ -17,7 +17,6 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var ProfilePicture: UIImageView!
     @IBOutlet weak var ClubsTextLabel: UILabel!
-    @IBOutlet weak var AttendingClubLabel: UILabel!
     @IBOutlet weak var UpcomingTextLabel: UILabel!
     @IBOutlet weak var UserDescriptionTextLabel: UILabel!
     
@@ -39,7 +38,7 @@ class ProfileViewController: UIViewController {
     var FriendsViewController: UITableViewController!
     
     var user_description: String = ""
-    var UserID: String = ""
+    var UserID: String =  Auth.auth().currentUser!.uid
     var isFollowing: Bool = false
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,26 +64,6 @@ class ProfileViewController: UIViewController {
                 }
             })
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        ClubViewController = self.childViewControllers[0] as! ClubTableViewController
-        FriendsViewController = self.childViewControllers[1] as! FriendTableViewController
-
-        configureAuth()
-        configureDatabase()
-        configureStorage()
-        
-        if UserID == "" {
-            UserID = Auth.auth().currentUser!.uid
-        }
-        
-        ProfilePicture.layer.borderWidth = 1
-        ProfilePicture.layer.masksToBounds = false
-        ProfilePicture.layer.cornerRadius = ProfilePicture.frame.height/2
-        ProfilePicture.clipsToBounds = true
-        ProfilePicture.contentMode = .scaleAspectFill;
         
         ref.child("users").child(UserID).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
@@ -97,12 +76,12 @@ class ProfileViewController: UIViewController {
             let lastName = value?["lastName"] as? String
             self.navigationItem.title = firstName! + " " + lastName!
             self.UserDescriptionTextLabel.text = "Class of " + grad_year + "\n" + major + "\n" + college + "\n" + university
-
+            
             
         }) { (error) in
             print(error.localizedDescription)
         }
-
+        
         let pictureRef = storageRef.child("user_photos/" + UserID)
         // Download in memory with a maximum allowed size of 15MB (1 * 1024 * 1024 bytes)
         pictureRef.getData(maxSize: 15 * 1024 * 1024) { data, error in
@@ -113,6 +92,31 @@ class ProfileViewController: UIViewController {
                 self.ProfilePicture.image = UIImage(data: data!)
             }
         }
+        
+        ref.child("users").child(UserID).child("clubs").observe(.value, with:{ (snapshot: DataSnapshot) in
+            self.ClubsTextLabel.text = String(Int(snapshot.childrenCount))
+        })
+        
+        
+        ref.child("users").child(UserID).child("events").observe(.value, with:{ (snapshot: DataSnapshot) in
+            self.UpcomingTextLabel.text = String(Int(snapshot.childrenCount))
+        })
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ClubViewController = self.childViewControllers[0] as! ClubTableViewController
+        FriendsViewController = self.childViewControllers[1] as! FriendTableViewController
+
+        configureAuth()
+        configureDatabase()
+        configureStorage()
+        
+        ProfilePicture.layer.borderWidth = 1
+        ProfilePicture.layer.masksToBounds = false
+        ProfilePicture.layer.cornerRadius = ProfilePicture.frame.height/2
+        ProfilePicture.clipsToBounds = true
+        ProfilePicture.contentMode = .scaleAspectFill;
         
         ClubsView.isHidden = false
         FriendsView.isHidden = true
@@ -133,6 +137,7 @@ class ProfileViewController: UIViewController {
                 // check if the current app user is the current FIRUser
                 if self.user != activeUser {
                     self.user = activeUser
+                    self.UserID = (self.user?.uid)!
                 }
             } else {
                 // user must sign in
@@ -145,8 +150,19 @@ class ProfileViewController: UIViewController {
         // get a reference to the second view controller
         if segue.identifier == "editProfile" {
             let secondViewController = segue.destination as! CompleteSignupViewController
-            // set a variable in the second view controller with the String to pass
             secondViewController.isEditing = true
+        }
+        
+        if segue.identifier == "clubTableSegue" {
+            print("club: " + UserID)
+            let secondViewController = segue.destination as! ClubTableViewController
+            secondViewController.UserID = self.UserID
+        }
+        
+        if segue.identifier == "followingTableSegue" {
+            print("following: " + UserID)
+            let secondViewController = segue.destination as! FriendTableViewController
+            secondViewController.UserID = self.UserID
         }
     }
     

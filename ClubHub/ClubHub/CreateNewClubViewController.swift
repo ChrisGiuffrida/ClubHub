@@ -15,10 +15,10 @@ class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UIText
     
 
     @IBOutlet weak var ClubNameTextField: UITextField!
-    @IBOutlet weak var ClubAbbreviationTextField: UITextField!
-    @IBOutlet weak var ClubDescriptionTextView: UITextView!
+    @IBOutlet weak var ClubAbbreviationTextField: customTextField!
     @IBOutlet weak var ClubImageView: UIImageView!
     @IBOutlet weak var CreateClubButton: UIButton!
+    @IBOutlet weak var ClubDescriptionTextView: UITextView!
     
     var ref: DatabaseReference!
     var storageRef: StorageReference!
@@ -146,7 +146,7 @@ class CreateNewClubViewController: UIViewController, UITextFieldDelegate, UIText
         if user != nil {
             ClubKey = ref.child("clubs").childByAutoId().key
             let admin: [AnyHashable: Any] = [(self.user?.uid)!: true]
-            self.ref.child("clubs").child(ClubKey).setValue(["club_name": ClubNameTextField.text, "club_abbreviation": ClubAbbreviationTextField.text, "club_description": ClubDescriptionTextView.text, "admins": admin])
+            self.ref.child("clubs").child(ClubKey).setValue(["club_name": ClubNameTextField.text, "club_abbreviation": ClubAbbreviationTextField.text, "club_description": ClubDescriptionTextView.text, "admins": admin, "members": admin])
             
             let clubs: [AnyHashable: Any] = [ClubKey: true]
             self.ref.child("users").child((self.user?.uid)!).child("admin_clubs").updateChildValues(clubs)
