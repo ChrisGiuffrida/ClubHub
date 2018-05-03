@@ -1,0 +1,57 @@
+Alex Ayala, Chris Giuffrida, Thomas Krill
+
+Development Environment: Xcode 9.3
+
+AnalyticsViewController.swift
+- Loads and creates charts based on given club
+
+AppDelegate.swift
+- Delegate file for application. Also handles some work with Google and Facebook authentication
+
+CameraViewController.swift
+- Activates camera for QR scanning
+
+ClubTableViewController.swift
+- Provides table listing of clubs for given user for profile view
+
+ClubViewController.swift
+- Gives information about a club via a loaded profile
+
+CompleteSignupViewController.swift
+- Allows user to provide demographic information to complete their sign up
+
+CreateClubEventViewController.swift
+- Gives functionality for club admin to create an event for the club
+
+CreateNewClubViewController.swift
+- Allows user to create a new club
+
+EventViewController.swift
+- Provides table with tappable event cells that give the user more information about the event via an alert
+
+EventsTableViewController.swift
+- Provides a table listing of the events for a given club
+
+FriendTableViewController.swift
+- Provides table listing of users a given user follows
+
+HomeViewController.swift
+- Provides live feed based on who you are following
+
+LoginViewController.swift
+- Provides login functionality
+
+MembersTableViewController.swift
+- Provides table listing of users who are part of a given club
+
+ProfileViewController.swift
+- Gives information about a user via a loaded profile
+
+QRCodeViewController.swift
+- Event QR code is displayed and savable
+
+SearchViewController.swift
+- Functionality for searching by club and by user
+
+YourClubsViewController.swift
+- Provides listing of clubs you are an admin of
